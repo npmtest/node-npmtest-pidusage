@@ -1,0 +1,770 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for node-npmtest-pidusage/node_modules/pidusage/lib/stats.js</title>
+    <meta charset="utf-8">
+    <style>
+        body, html {
+            margin:0; padding: 0;
+        }
+        body {
+            font-family: Arial, Helvetica;
+            font-size: 10pt;
+        }
+        div.header, div.footer {
+            background: #eee;
+            padding: 1em;
+        }
+        div.header {
+            height: 160px;
+            padding: 0 1em 0 1em;
+            z-index: 100;
+            position: fixed;
+            top: 0;
+            border-bottom: 1px solid #666;
+            width: 100%;
+        }
+        div.footer {
+            border-top: 1px solid #666;
+        }
+        div.body {
+            margin-top: 170px;
+        }
+        div.meta {
+            font-size: 90%;
+            text-align: center;
+        }
+        h1, h2, h3 {
+            font-weight: normal;
+        }
+        h1 {
+            font-size: 12pt;
+        }
+        h2 {
+            font-size: 10pt;
+        }
+        pre {
+            font-family: Menlo, Monaco, Consolas, Courier New, monospace;
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+            tab-size: 2;
+        }
+
+        div.path { font-size: 110%; }
+        div.path a:link, div.path a:visited { color: #000; }
+        table.coverage { border-collapse: collapse; margin:0; padding: 0 }
+
+        table.coverage td {
+            margin: 0;
+            padding: 0;
+            color: #111;
+            vertical-align: top;
+        }
+        table.coverage td.line-count {
+            width: 50px;
+            text-align: right;
+            padding-right: 5px;
+        }
+        table.coverage td.line-coverage {
+            color: #777 !important;
+            text-align: right;
+            border-left: 1px solid #666;
+            border-right: 1px solid #666;
+        }
+
+        table.coverage td.text {
+        }
+
+        table.coverage td span.cline-any {
+            display: inline-block;
+            padding: 0 5px;
+            width: 40px;
+        }
+        table.coverage td span.cline-neutral {
+            background: #eee;
+        }
+        table.coverage td span.cline-yes {
+            background: #b5d592;
+            color: #999;
+        }
+        table.coverage td span.cline-no {
+            background: #fc8c84;
+        }
+
+        .cstat-yes { color: #111; }
+        .cstat-no { background: #fc8c84; color: #111; }
+        .fstat-no { background: #ffc520; color: #111 !important; }
+        .cbranch-no { background:  yellow !important; color: #111; }
+
+        .cstat-skip { background: #ddd; color: #111; }
+        .fstat-skip { background: #ddd; color: #111 !important; }
+        .cbranch-skip { background: #ddd !important; color: #111; }
+
+        .missing-if-branch {
+            display: inline-block;
+            margin-right: 10px;
+            position: relative;
+            padding: 0 4px;
+            background: black;
+            color: yellow;
+        }
+
+        .skip-if-branch {
+            display: none;
+            margin-right: 10px;
+            position: relative;
+            padding: 0 4px;
+            background: #ccc;
+            color: white;
+        }
+
+        .missing-if-branch .typ, .skip-if-branch .typ {
+            color: inherit !important;
+        }
+
+        .entity, .metric { font-weight: bold; }
+        .metric { display: inline-block; border: 1px solid #333; padding: 0.3em; background: white; }
+        .metric small { font-size: 80%; font-weight: normal; color: #666; }
+
+        div.coverage-summary table { border-collapse: collapse; margin: 3em; font-size: 110%; }
+        div.coverage-summary td, div.coverage-summary table  th { margin: 0; padding: 0.25em 1em; border-top: 1px solid #666; border-bottom: 1px solid #666; }
+        div.coverage-summary th { text-align: left; border: 1px solid #666; background: #eee; font-weight: normal; }
+        div.coverage-summary th.file { border-right: none !important; }
+        div.coverage-summary th.pic { border-left: none !important; text-align: right; }
+        div.coverage-summary th.pct { border-right: none !important; }
+        div.coverage-summary th.abs { border-left: none !important; text-align: right; }
+        div.coverage-summary td.pct { text-align: right; border-left: 1px solid #666; }
+        div.coverage-summary td.abs { text-align: right; font-size: 90%; color: #444; border-right: 1px solid #666; }
+        div.coverage-summary td.file { text-align: right; border-left: 1px solid #666; white-space: nowrap;  }
+        div.coverage-summary td.pic { min-width: 120px !important;  }
+        div.coverage-summary a:link { color: #000; }
+        div.coverage-summary a:visited { color: #333; }
+        div.coverage-summary tfoot td { border-top: 1px solid #666; }
+
+        div.coverage-summary .yui3-datatable-sort-indicator, div.coverage-summary .dummy-sort-indicator {
+            height: 10px;
+            width: 7px;
+            display: inline-block;
+            margin-left: 0.5em;
+        }
+        div.coverage-summary .yui3-datatable-sort-indicator {
+            background: no-repeat scroll 0 0 transparent;
+        }
+        div.coverage-summary .yui3-datatable-sorted .yui3-datatable-sort-indicator {
+            background-position: 0 -20px;
+        }
+        div.coverage-summary .yui3-datatable-sorted-desc .yui3-datatable-sort-indicator {
+            background-position: 0 -10px;
+        }
+
+        .high { background: #b5d592 !important; }
+        .medium { background: #ffe87c !important; }
+        .low { background: #fc8c84 !important; }
+
+        span.cover-fill, span.cover-empty {
+            display:inline-block;
+            border:1px solid #444;
+            background: white;
+            height: 12px;
+        }
+        span.cover-fill {
+            background: #ccc;
+            border-right: 1px solid #444;
+        }
+        span.cover-empty {
+            background: white;
+            border-left: none;
+        }
+        span.cover-full {
+            border-right: none !important;
+        }
+        pre.prettyprint {
+            border: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        .com { color: #999 !important; }
+        .ignore-none { color: #999; font-weight: normal; }
+
+    </style>
+</head>
+<body>
+<div class="header low">
+    <h1 style="font-weight: bold;">
+        <a href="https://github.com/npmtest/node-npmtest-pidusage">npmtest-pidusage (v0.0.1)</a>
+    </h1>
+    <h1>Code coverage report for <span class="entity">node-npmtest-pidusage/node_modules/pidusage/lib/stats.js</span></h1>
+    <h2>
+        
+        Statements: <span class="metric">10.59% <small>(9 / 85)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Branches: <span class="metric">0% <small>(0 / 44)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Functions: <span class="metric">0% <small>(0 / 12)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Lines: <span class="metric">10.59% <small>(9 / 85)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../../../index.html">All files</a> &#187; <a href="index.html">node-npmtest-pidusage/node_modules/pidusage/lib/</a> &#187; stats.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183</td><td class="line-coverage"><span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var os = require('os')
+var fs = require('fs')
+var p = require('path')
+var exec = require('child_process').exec
+var spawn = require('child_process').spawn
+var helpers = require('./helpers')
+var format = require('util').format
+&nbsp;
+var stats = {
+  history: {},
+  cpu: null, //used to store cpu informations
+  proc: <span class="fstat-no" title="function not covered" >function(pid, options, done) {</span>
+<span class="cstat-no" title="statement not covered" >    var self = this</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if(this.cpu !== null) {</span>
+<span class="cstat-no" title="statement not covered" >      fs.readFile('/proc/uptime', 'utf8', <span class="fstat-no" title="function not covered" >function(err, uptime) {</span></span>
+<span class="cstat-no" title="statement not covered" >        if(err)</span>
+<span class="cstat-no" title="statement not covered" >          return done(err, null)</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        if(uptime === undefined) {</span>
+<span class="cstat-no" title="statement not covered" >          console.error("[pidusage] We couldn't find uptime from /proc/uptime")</span>
+<span class="cstat-no" title="statement not covered" >          self.cpu.uptime = os.uptime()</span>
+        } else {
+<span class="cstat-no" title="statement not covered" >          self.cpu.uptime = uptime.split(' ')[0]</span>
+        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        return self.proc_calc(pid, options, done)</span>
+      })
+    } else {
+<span class="cstat-no" title="statement not covered" >      helpers.cpu(<span class="fstat-no" title="function not covered" >function(err, cpu) {</span></span>
+<span class="cstat-no" title="statement not covered" >        if(err)</span>
+<span class="cstat-no" title="statement not covered" >          return done(err, null)</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        self.cpu = cpu</span>
+<span class="cstat-no" title="statement not covered" >        return self.proc_calc(pid, options, done)</span>
+      })
+    }
+  },
+  proc_calc: <span class="fstat-no" title="function not covered" >function(pid, options, done) {</span>
+<span class="cstat-no" title="statement not covered" >    var history = this.history[pid] ? this.history[pid] : {}</span>
+<span class="cstat-no" title="statement not covered" >    var cpu = this.cpu</span>
+<span class="cstat-no" title="statement not covered" >    var self = this</span>
+&nbsp;
+    //Arguments to path.join must be strings
+<span class="cstat-no" title="statement not covered" >    fs.readFile(p.join('/proc', ''+pid, 'stat'), 'utf8', <span class="fstat-no" title="function not covered" >function(err, infos) {</span></span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      if(err)</span>
+<span class="cstat-no" title="statement not covered" >        return done(err, null)</span>
+&nbsp;
+      //https://github.com/arunoda/node-usage/commit/a6ca74ecb8dd452c3c00ed2bde93294d7bb75aa8
+      //preventing process space in name by removing values before last ) (pid (name) ...)
+<span class="cstat-no" title="statement not covered" >      var index = infos.lastIndexOf(')')</span>
+<span class="cstat-no" title="statement not covered" >      infos = infos.substr(index + 2).split(' ')</span>
+&nbsp;
+      //according to http://man7.org/linux/man-pages/man5/proc.5.html (index 0 based - 2)
+      //In kernels before Linux 2.6, start was expressed in jiffies. Since Linux 2.6, the value is expressed in clock ticks
+<span class="cstat-no" title="statement not covered" >      var stat = {</span>
+          utime: parseFloat(infos[11]),
+          stime: parseFloat(infos[12]),
+          cutime: parseFloat(infos[13]),
+          cstime: parseFloat(infos[14]),
+          start: parseFloat(infos[19]) / cpu.clock_tick,
+          rss: parseFloat(infos[21])
+      }
+&nbsp;
+      //http://stackoverflow.com/questions/16726779/total-cpu-usage-of-an-application-from-proc-pid-stat/16736599#16736599
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      var childrens = options.childrens ? stat.cutime + stat.cstime : 0</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      var total = stat.stime - (history.stime || 0) + stat.utime - (history.utime || 0) + childrens</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      total = total / cpu.clock_tick</span>
+&nbsp;
+      //time elapsed between calls
+<span class="cstat-no" title="statement not covered" >      var seconds = history.uptime !== undefined ? cpu.uptime - history.uptime : stat.start - cpu.uptime</span>
+<span class="cstat-no" title="statement not covered" >      seconds = Math.abs(seconds)</span>
+<span class="cstat-no" title="statement not covered" >      seconds = seconds === 0 ? 1 : seconds </span>//we sure can't divide through 0
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      self.history[pid] = stat</span>
+<span class="cstat-no" title="statement not covered" >      self.history[pid].uptime = cpu.uptime</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      return done(null, {</span>
+        cpu: (total / seconds) * 100,
+        memory: stat.rss * cpu.pagesize
+      })
+    })
+  },
+  /**
+   * Get pid informations through ps command
+   * @param  {int}   pid
+   * @return  {Function} done (err, stat)
+   * on os x skip headers with pcpu=,rss=
+   * on linux it could be --no-header
+   * on solaris 11 can't figure out a way to do this properly so...
+   */
+  ps: <span class="fstat-no" title="function not covered" >function(pid, options, done) {</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var cmd = 'ps -o pcpu,rss -p '</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if(os.platform() == 'aix')</span>
+<span class="cstat-no" title="statement not covered" >      cmd = 'ps -o pcpu,rssize -p ' </span>//this one could work on other platforms
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    exec(cmd + pid, <span class="fstat-no" title="function not covered" >function(err, stdout, stderr) {</span></span>
+<span class="cstat-no" title="statement not covered" >      if(err)</span>
+<span class="cstat-no" title="statement not covered" >        return done(err, null)</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      stdout = stdout.split(os.EOL)[1]</span>
+<span class="cstat-no" title="statement not covered" >      stdout = stdout.replace(/^\s+/, '').replace(/\s\s+/g, ' ').split(' ')</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      return done(null, {</span>
+        cpu: parseFloat(stdout[0].replace(',', '.')),
+        memory: parseFloat(stdout[1]) * 1024
+      })
+    })
+  },
+  /**
+   * This is really in a beta stage
+   */
+  win: <span class="fstat-no" title="function not covered" >function(pid, options, done) {</span>
+<span class="cstat-no" title="statement not covered" >    var history = this.history[pid] ? this.history[pid] : {}</span>
+		//  http://social.msdn.microsoft.com/Forums/en-US/469ec6b7-4727-4773-9dc7-6e3de40e87b8/cpu-usage-in-for-each-active-process-how-is-this-best-determined-and-implemented-in-an?forum=csharplanguage
+<span class="cstat-no" title="statement not covered" >    var args = 'PROCESS ' + pid + ' get workingsetsize,usermodetime,kernelmodetime'</span>
+<span class="cstat-no" title="statement not covered" >    var wmic = spawn('wmic', args.split(' '), {detached: true})</span>
+<span class="cstat-no" title="statement not covered" >    var stdout = ''</span>
+<span class="cstat-no" title="statement not covered" >    var stderr = ''</span>
+<span class="cstat-no" title="statement not covered" >    var self = this</span>
+<span class="cstat-no" title="statement not covered" >    var uptime = os.uptime()</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    wmic.stdout.on('data', <span class="fstat-no" title="function not covered" >function(d) {</span></span>
+<span class="cstat-no" title="statement not covered" >     stdout += d.toString()</span>
+    })
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    wmic.stderr.on('data', <span class="fstat-no" title="function not covered" >function(d) {</span></span>
+<span class="cstat-no" title="statement not covered" >      stderr += d.toString()</span>
+    })
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    wmic.on('error', <span class="fstat-no" title="function not covered" >function(err) {</span></span>
+<span class="cstat-no" title="statement not covered" >      console.error('[pidusage] Command "wmic ' + args + '" failed with error %s', err)</span>
+    })
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    wmic.on('close', <span class="fstat-no" title="function not covered" >function(code) {</span></span>
+<span class="cstat-no" title="statement not covered" >      stdout = stdout.trim()</span>
+<span class="cstat-no" title="statement not covered" >      stderr = stderr.trim()</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      if(!stdout || code !== 0) {</span>
+<span class="cstat-no" title="statement not covered" >        var error = format('%s Wmic errored, please open an issue on https://github.com/soyuka/pidusage with this message.%s', new Date().toString(), os.EOL)</span>
+<span class="cstat-no" title="statement not covered" >        error += format('Command was "wmic %s", release is %s%s', args, os.release(), os.EOL)</span>
+<span class="cstat-no" title="statement not covered" >        stderr = error + (stderr ? format('Wmic reported the following error: %s.', stderr) : 'Wmic reported no errors.')</span>
+<span class="cstat-no" title="statement not covered" >        stderr = format('%s%s%s Wmic exited with code %d.%s', os.EOL, stderr, os.EOL, code, os.EOL)</span>
+<span class="cstat-no" title="statement not covered" >        stdout ? stderr = format('%s%s Stdout was %s', stderr, os.EOL, stdout) : null</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        return done(new Error(stderr , null))</span>
+      }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      stdout = stdout.split(os.EOL)[1].replace(/\s\s+/g, ' ').split(' ')</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      var stats = {</span>
+        kernelmodetime: parseFloat(stdout[0]),
+        usermodetime: parseFloat(stdout[1]),
+      }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      var workingsetsize = parseFloat(stdout[2])</span>
+&nbsp;
+      //process usage since last call
+<span class="cstat-no" title="statement not covered" >      var total = stats.kernelmodetime - (history.kernelmodetime || 0) + stats.usermodetime - (history.usermodetime || 0)</span>
+<span class="cstat-no" title="statement not covered" >      total = total / 10000000</span>
+&nbsp;
+      //time elapsed between calls
+<span class="cstat-no" title="statement not covered" >      var seconds = history.uptime !== undefined ? uptime - history.uptime : 0</span>
+<span class="cstat-no" title="statement not covered" >      seconds = Math.abs(seconds)</span>
+<span class="cstat-no" title="statement not covered" >      seconds = seconds === 0 ? 1 : seconds </span>//we sure can't divide through 0
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      self.history[pid] = stats</span>
+<span class="cstat-no" title="statement not covered" >      self.history[pid].uptime = uptime</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      return done(null, {cpu: (total / seconds) * 100, memory: workingsetsize})</span>
+    })
+  }
+}
+&nbsp;
+module.exports = stats;
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a> at Tue Apr 25 2017 14:07:57 GMT+0000 (UTC)</div>
+</div>
+</body>
+</html>
